@@ -40,6 +40,7 @@ var defaultOptions = {
   fingerprint: _fingerprint2.default,
   resume: true,
   onCreated: null,
+  onResumed: null,
   onProgress: null,
   onChunkComplete: null,
   onSuccess: null,
@@ -326,6 +327,16 @@ var Upload = function () {
         }
       }
     }
+  }, {
+    key: "_emitResumed",
+    value: function _emitResumed(uploadOffset) {
+      if (typeof this.options.onResumed === "function") {
+        var options = this.options.onResumed(uploadOffset, this.options);
+        if (options) {
+          this.options = options;
+        }
+      }
+    }
 
     /**
      * Publishes notification when data has been sent to the server. This
@@ -519,6 +530,8 @@ var Upload = function () {
           _this5._emitXhrError(xhr, new Error("tus: invalid or missing length value"));
           return;
         }
+
+        _this5._emitResumed(offset);
 
         // Upload has already been completed and we do not need to send additional
         // data to the server
