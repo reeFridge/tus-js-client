@@ -331,7 +331,7 @@ var Upload = function () {
     key: "_emitResumed",
     value: function _emitResumed(uploadOffset) {
       if (typeof this.options.onResumed === "function") {
-        var options = this.options.onResumed(uploadOffset, this.options);
+        var options = this.options.onResumed(this.url, uploadOffset, this.options);
         if (options) {
           this.options = options;
         }
