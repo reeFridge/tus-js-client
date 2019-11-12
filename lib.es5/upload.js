@@ -419,7 +419,7 @@ var Upload = function () {
         }
 
         _this4.url = (0, _request.resolveUrl)(_this4.options.endpoint, location);
-        _this4._emitCreated(location, xhr.response);
+        _this4._emitCreated(location, xhr.response || xhr.responseText);
 
         if (_this4._size === 0) {
           // Nothing to upload and file was successfully created
